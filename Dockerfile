@@ -4,9 +4,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN go build -o server .
+# Отключаем модули и компилируем
+RUN go env -w GO111MODULE=off && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build>
 
-FROM debian:bullseye-slim
+FROM alpine:latest
 
 WORKDIR /app
 
